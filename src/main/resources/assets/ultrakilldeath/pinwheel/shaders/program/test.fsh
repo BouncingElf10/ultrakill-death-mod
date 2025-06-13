@@ -65,28 +65,28 @@ void main() {
 
                 if (randCubeId < 0.25) {
                     if (x < 0.25) {
-                        redMask = 0.2;
-                        darkenMask = 0.5;
+                        redMask = 0.4;
+                        darkenMask = 0.8;
                     }
                 } else if (randCubeId < 0.5) {
                     if (x >= 0.25 && x < 0.5) {
-                        redMask = 0.2;
-                        darkenMask = 0.5;
+                        redMask = 0.4;
+                        darkenMask = 0.8;
                     }
                 } else if (randCubeId < 0.75) {
                     if (x >= 0.5 && x < 0.75) {
-                        redMask = 0.2;
-                        darkenMask = 0.5;
+                        redMask = 0.4;
+                        darkenMask = 0.8;
                     }
                 } else {
                     if (x >= 0.75) {
-                        redMask = 0.2;
-                        darkenMask = 0.5;
+                        redMask = 0.4;
+                        darkenMask = 0.8;
                     }
                 }
             }
         }
     }
 
-    fragColor = (orangeTintedColor + vec4(redMask, 0.0, 0.0, 0.0)) * darkenMask ;
+    fragColor = (orangeTintedColor + vec4(redMask, 0.0, 0.0, 0.0)) * darkenMask;
 }
