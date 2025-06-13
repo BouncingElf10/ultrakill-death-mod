@@ -2,7 +2,7 @@
   "stages": [
     {
       "type": "veil:blit",
-      "shader": "ultrakilldeath:test",
+      "shader": "ultrakilldeath:composite1",
       "in": "minecraft:main"
     }
   ]
