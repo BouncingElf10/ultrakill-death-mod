@@ -44,7 +44,7 @@ public class ULTRAKILLDeathClient implements ClientModInitializer {
 	private void ShaderActivator() {
 		try {
 			PostProcessingManager postProcessingManager = VeilRenderSystem.renderer().getPostProcessingManager();
-			PostPipeline postPipeline = postProcessingManager.getPipeline(Identifier.of(MOD_ID, "example"));
+			PostPipeline postPipeline = postProcessingManager.getPipeline(Identifier.of(MOD_ID, "death"));
             assert postPipeline != null;
             postPipeline.setFloat("progress", PROGRESS);
 			postProcessingManager.runPipeline(postPipeline);
