@@ -1,0 +1,9 @@
+{
+  "stages": [
+    {
+      "type": "veil:blit",
+      "shader": "ultrakilldeath:test",
+      "in": "minecraft:main"
+    }
+  ]
+}
