@@ -16,6 +16,7 @@ public abstract class PlayerDeathMixin {
 	private void onDeath(DamageSource source, CallbackInfo ci) {
 		IS_DEAD = true;
 		PROGRESS = 0.0f;
+		CLOSING_PROGRESS = 0.0f;
 	}
 }
 
