@@ -1,4 +1,9 @@
 {
   "vertex": "veil:blit_screen",
-  "fragment": "ultrakilldeath:composite2"
+  "fragment": "ultrakilldeath:composite2",
+  "textures": {
+    "DeathOpen": "ultrakilldeath:textures/overlay/deathopen.png",
+    "DeathClosed": "ultrakilldeath:textures/overlay/deathclosed.png",
+    "ISeeYou": "ultrakilldeath:textures/overlay/iseeyou.png"
+  }
 }

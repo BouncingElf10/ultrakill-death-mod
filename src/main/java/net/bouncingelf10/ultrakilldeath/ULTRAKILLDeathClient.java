@@ -43,6 +43,21 @@ public class ULTRAKILLDeathClient implements ClientModInitializer {
 				PROGRESS += 0.025f;
 				if (PROGRESS > 1.0f) {
 					PROGRESS = 1.0f;
+//					CLOSING_PROGRESS += 0.5f;
+//					if (CLOSING_PROGRESS > 1.0f) {
+//						CLOSING_PROGRESS = 1.0f;
+//					}
+                }
+			}
+		});
+
+		WorldRenderEvents.START.register((ctx) -> {
+			if (IS_DEAD) {
+				if (PROGRESS >= 1.0f) {
+					CLOSING_PROGRESS += 0.1f;
+					if (CLOSING_PROGRESS > 1.0f) {
+						CLOSING_PROGRESS = 1.0f;
+					}
 				}
 			}
 		});
@@ -54,6 +69,7 @@ public class ULTRAKILLDeathClient implements ClientModInitializer {
 			PostPipeline postPipeline = postProcessingManager.getPipeline(Identifier.of(MOD_ID, "death"));
             assert postPipeline != null;
             postPipeline.setFloat("progress", PROGRESS);
+			postPipeline.setFloat("closingProgress", CLOSING_PROGRESS);
 			postProcessingManager.runPipeline(postPipeline);
 
 		} catch (Exception e) {

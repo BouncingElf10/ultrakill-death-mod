@@ -1,9 +1,15 @@
 uniform sampler2D Composite1ColorBuffer;
 uniform sampler2D DiffuseSampler1;
 uniform sampler2D DiffuseDepthSampler;
+
+uniform sampler2D DeathOpen;
+uniform sampler2D DeathClosed;
+uniform sampler2D ISeeYou;
+
 uniform float GameTime;
 uniform vec3 heartPos;
 uniform float progress;
+uniform float closingProgress;
 
 in vec2 texCoord;
 out vec4 fragColor;
@@ -27,8 +33,19 @@ void main() {
     vec4 baseColor = texture(Composite1ColorBuffer, texCoord);
     vec2 editedCoords = texCoord;
 
-    vec2 resolution = textureSize(Composite1ColorBuffer, 0);
+    vec2 resolution = vec2(textureSize(Composite1ColorBuffer, 0));
     vec4 sharpendColor = sharpen(Composite1ColorBuffer, editedCoords, resolution / 1.0 + round(progress), pow(progress, 2.0) * 8.0);
 
     fragColor = sharpendColor;
+    if (closingProgress > 0.0) {
+
+        float limit = closingProgress * 0.5;
+        fragColor = texture(ISeeYou, vec2(texCoord.x, -texCoord.y));
+        if (texCoord.y <= limit || texCoord.y >= 1.0 - limit) {
+            fragColor = texture(DeathOpen, vec2(texCoord.x, -texCoord.y));
+        }
+    }
+
+
+
 }
