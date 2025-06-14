@@ -1,16 +1,19 @@
 package net.bouncingelf10.ultrakilldeath;
 
 
-import foundry.veil.Veil;
+import com.mojang.blaze3d.systems.RenderSystem;
 import foundry.veil.api.client.render.VeilRenderSystem;
 import foundry.veil.api.client.render.post.PostPipeline;
 import foundry.veil.api.client.render.post.PostProcessingManager;
-import foundry.veil.api.client.render.shader.program.ShaderProgram;
-import foundry.veil.platform.VeilEventPlatform;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
+import net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback;
 import net.fabricmc.fabric.api.client.rendering.v1.WorldRenderEvents;
+import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.gui.DrawContext;
 import net.minecraft.util.Identifier;
+import org.joml.Vector2f;
+import org.joml.Vector2i;
 
 import static net.bouncingelf10.ultrakilldeath.ULTRAKILLDeath.LOGGER;
 import static net.bouncingelf10.ultrakilldeath.ULTRAKILLDeath.MOD_ID;
@@ -18,6 +21,7 @@ import static net.bouncingelf10.ultrakilldeath.ULTRAKILLDeath.MOD_ID;
 public class ULTRAKILLDeathClient implements ClientModInitializer {
 
 	public static float PROGRESS = 0.0f;
+	public static float	CLOSING_PROGRESS = 0.0f;
 	public static boolean IS_DEAD = false;
 
 	@Override
@@ -36,7 +40,7 @@ public class ULTRAKILLDeathClient implements ClientModInitializer {
 
 		ClientTickEvents.END_CLIENT_TICK.register((client) -> {
 			if (client.world != null && client.player != null && IS_DEAD) {
-				PROGRESS += 0.01f;
+				PROGRESS += 0.025f;
 				if (PROGRESS > 1.0f) {
 					PROGRESS = 1.0f;
 				}
