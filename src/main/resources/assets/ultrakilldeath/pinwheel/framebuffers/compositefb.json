@@ -1,0 +1,8 @@
+{
+  "autoClear": true,
+  "type": "texture",
+  "format": "RGBA8",
+  "linear": false,
+  "name": "Composite1ColorBuffer",
+  "depth": false
+}

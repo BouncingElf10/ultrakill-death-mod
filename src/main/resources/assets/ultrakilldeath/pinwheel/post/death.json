@@ -3,7 +3,14 @@
     {
       "type": "veil:blit",
       "shader": "ultrakilldeath:composite1",
-      "in": "minecraft:main"
+      "in": "minecraft:main",
+      "out": "ultrakilldeath:compositefb"
+    },
+    {
+      "type": "veil:blit",
+      "shader": "ultrakilldeath:composite2",
+      "in": "ultrakilldeath:compositefb",
+      "out": "veil:post"
     }
   ]
 }
