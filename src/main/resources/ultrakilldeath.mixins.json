@@ -1,11 +1,17 @@
 {
-	"required": true,
-	"package": "net.bouncingelf10.ultrakilldeath.mixin",
-	"compatibilityLevel": "JAVA_21",
-	"mixins": [
-		"ExampleMixin"
-	],
-	"injectors": {
-		"defaultRequire": 1
-	}
+  "required": true,
+  "package": "net.bouncingelf10.ultrakilldeath.mixin",
+  "compatibilityLevel": "JAVA_21",
+  "mixins": [
+    "PlayerDeathMixin",
+    "PlayerManagerMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  },
+  "client": [
+    "DeathScreenMixin",
+    "HideArmMixin",
+    "HUDMixin"
+  ]
 }
