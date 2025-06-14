@@ -28,7 +28,7 @@ void main() {
     vec2 editedCoords = texCoord;
 
     vec2 resolution = textureSize(Composite1ColorBuffer, 0);
-    vec4 sharpendColor = sharpen(Composite1ColorBuffer, editedCoords, resolution / 2.0 + round(progress), progress);
+    vec4 sharpendColor = sharpen(Composite1ColorBuffer, editedCoords, resolution / 1.0 + round(progress), pow(progress, 2.0) * 8.0);
 
     fragColor = sharpendColor;
 }
