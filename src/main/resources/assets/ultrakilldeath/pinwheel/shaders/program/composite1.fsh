@@ -26,17 +26,13 @@ float rand(float x) {
 }
 
 vec4 chromaticAberration(sampler2D tex, vec2 coords, float intensity) {
-    // Horizontal chromatic aberration - red shifts left, cyan shifts right
     vec2 redOffset = vec2(-intensity, 0.0);
     vec2 cyanOffset = vec2(intensity, 0.0);
 
-    // Sample original color
     vec4 original = texture2D(tex, coords);
 
-    // Sample red channel shifted to the left
     float r = texture2D(tex, coords + redOffset).r;
 
-    // Sample both green and blue channels shifted to the right (creates cyan)
     float g = texture2D(tex, coords + cyanOffset).g;
     float b = texture2D(tex, coords + cyanOffset).b;
 
@@ -46,9 +42,8 @@ vec4 chromaticAberration(sampler2D tex, vec2 coords, float intensity) {
 void main() {
     vec4 baseColor = texture(DiffuseSampler0, texCoord);
     vec2 resolution = textureSize(DiffuseSampler0, 0);
-    vec4 sharpendColor = sharpen(DiffuseSampler0, texCoord, resolution / 2.0 + round(progress), progress);
 
-    vec4 orangeTintedColor = sharpendColor + vec4(0.839, 0.180, 0.0, 0.0) * max(1.0 - progress * 16.0, 0.0);
+    vec4 orangeTintedColor = baseColor + vec4(0.839, 0.180, 0.0, 0.0) * max(1.0 - progress * 16.0, 0.0);
 
     int bars = 32;
     float barCount = mix(2.0, float(bars), smoothstep(0.0, 0.85, progress));
@@ -68,7 +63,7 @@ void main() {
         float height = 0.15 + rand(id + 200.0 + timeSeed) * 0.1;
 
         if (i > barCount - 3) {
-            height = 0.25; // Ensure cube bars are taller
+            height = 0.25;
         }
 
         bool isInBar = (y > randY && y < randY + height);
@@ -106,14 +101,13 @@ void main() {
         }
     }
 
-    // Apply chromatic aberration only where there's red
+
     vec4 finalColor;
     if (redMask > 0.0) {
-        // Heavy chromatic aberration intensity based on red mask strength
-        float aberrationIntensity = redMask * 0.02; // Adjust this value for more/less effect
-        vec4 aberratedColor = chromaticAberration(DiffuseSampler0, texCoord, aberrationIntensity);
 
-        // Apply the orange tint and red mask to the aberrated color
+        float aberrationIntensity = redMask * 0.02; // Adjust this value for more/less effect
+        vec4 aberratedColor = chromaticAberration(DiffuseSampler0, texCoord + vec2(0, 0), aberrationIntensity);
+
         vec4 tintedAberrated = aberratedColor + vec4(0.839, 0.180, 0.0, 0.0) * max(1.0 - progress * 16.0, 0.0);
         finalColor = (tintedAberrated + vec4(redMask, 0.0, 0.0, 0.0)) * darkenMask;
     } else {
