@@ -17,7 +17,8 @@ import static net.bouncingelf10.ultrakilldeath.ULTRAKILLDeath.MOD_ID;
 
 public class ULTRAKILLDeathClient implements ClientModInitializer {
 
-	private static float PROGRESS = 0.0f;
+	public static float PROGRESS = 0.0f;
+	public static boolean IS_DEAD = false;
 
 	@Override
 	public void onInitializeClient() {
@@ -25,17 +26,19 @@ public class ULTRAKILLDeathClient implements ClientModInitializer {
 
 		WorldRenderEvents.END.register((ctx) -> {
 			try {
-				ShaderActivator();
+				if (IS_DEAD) {
+					ShaderActivator();
+				}
 			} catch (Exception e) {
 				LOGGER.error("An error occurred during world rendering", e);
 			}
 		});
 
 		ClientTickEvents.END_CLIENT_TICK.register((client) -> {
-			if (client.world != null && client.player != null) {
+			if (client.world != null && client.player != null && IS_DEAD) {
 				PROGRESS += 0.01f;
 				if (PROGRESS > 1.0f) {
-					PROGRESS = 0.0f;
+					PROGRESS = 1.0f;
 				}
 			}
 		});
