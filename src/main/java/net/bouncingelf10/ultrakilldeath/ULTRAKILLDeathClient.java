@@ -5,6 +5,7 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import foundry.veil.api.client.render.VeilRenderSystem;
 import foundry.veil.api.client.render.post.PostPipeline;
 import foundry.veil.api.client.render.post.PostProcessingManager;
+import foundry.veil.api.client.util.Easings;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback;
@@ -23,6 +24,8 @@ public class ULTRAKILLDeathClient implements ClientModInitializer {
 	public static float PROGRESS = 0.0f;
 	public static float	CLOSING_PROGRESS = 0.0f;
 	public static boolean IS_DEAD = false;
+	private static int skullIndex = 0;
+	private static long lastToggleTime = 0;
 
 	@Override
 	public void onInitializeClient() {
@@ -43,10 +46,6 @@ public class ULTRAKILLDeathClient implements ClientModInitializer {
 				PROGRESS += 0.025f;
 				if (PROGRESS > 1.0f) {
 					PROGRESS = 1.0f;
-//					CLOSING_PROGRESS += 0.5f;
-//					if (CLOSING_PROGRESS > 1.0f) {
-//						CLOSING_PROGRESS = 1.0f;
-//					}
                 }
 			}
 		});
@@ -54,7 +53,7 @@ public class ULTRAKILLDeathClient implements ClientModInitializer {
 		WorldRenderEvents.START.register((ctx) -> {
 			if (IS_DEAD) {
 				if (PROGRESS >= 1.0f) {
-					CLOSING_PROGRESS += 0.1f;
+					CLOSING_PROGRESS += 0.25f;
 					if (CLOSING_PROGRESS > 1.0f) {
 						CLOSING_PROGRESS = 1.0f;
 					}
@@ -65,11 +64,20 @@ public class ULTRAKILLDeathClient implements ClientModInitializer {
 
 	private void ShaderActivator() {
 		try {
+			long currentTime = System.nanoTime(); // current time in nanoseconds
+			long timeElapsed = currentTime - lastToggleTime;
+
+			if (timeElapsed >= 600_000_000L) {
+				skullIndex = (skullIndex + 1) % 2;
+				lastToggleTime = currentTime;
+			}
+
 			PostProcessingManager postProcessingManager = VeilRenderSystem.renderer().getPostProcessingManager();
 			PostPipeline postPipeline = postProcessingManager.getPipeline(Identifier.of(MOD_ID, "death"));
             assert postPipeline != null;
             postPipeline.setFloat("progress", PROGRESS);
-			postPipeline.setFloat("closingProgress", CLOSING_PROGRESS);
+			postPipeline.setFloat("closingProgress", Easings.Easing.easeOutQuart.ease(CLOSING_PROGRESS));
+			postPipeline.setInt("skullIndex", skullIndex);
 			postProcessingManager.runPipeline(postPipeline);
 
 		} catch (Exception e) {

@@ -39,7 +39,7 @@ void main() {
     float x = texCoord.x;
     float timeSeed = floor(GameTime * 24000.0);
 
-    float line = float(floor(texCoord.y * 240.0));
+    float line = float(floor(texCoord.y * 240.0 / 2.0));
     float rnd = rand(line * 12.9898 + floor(GameTime * 48000.0));
     float mask = step(max(1.0 - progress, 0.2), rnd);
     float triangle = 1.0 - abs(texCoord.x * 2.0 - 1.0);

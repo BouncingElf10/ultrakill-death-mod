@@ -10,6 +10,7 @@ uniform float GameTime;
 uniform vec3 heartPos;
 uniform float progress;
 uniform float closingProgress;
+uniform int skullIndex;
 
 in vec2 texCoord;
 out vec4 fragColor;
@@ -42,7 +43,11 @@ void main() {
         float limit = closingProgress * 0.5;
         fragColor = texture(ISeeYou, vec2(texCoord.x, -texCoord.y));
         if (texCoord.y <= limit || texCoord.y >= 1.0 - limit) {
-            fragColor = texture(DeathOpen, vec2(texCoord.x, -texCoord.y));
+            if (skullIndex == 0) {
+                fragColor = texture(DeathClosed, vec2(texCoord.x, -texCoord.y));
+            } else if (skullIndex == 1) {
+                fragColor = texture(DeathOpen, vec2(texCoord.x, -texCoord.y));
+            }
         }
     }
 
