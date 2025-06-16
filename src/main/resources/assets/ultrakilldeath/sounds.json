@@ -1,0 +1,26 @@
+{
+  "skull_ahh": {
+    "subtitle": "sounds.ultrakilldeath.skull_ahh",
+    "sounds": [
+      "ultrakilldeath:skull_ahh"
+    ]
+  },
+  "tv_on": {
+    "subtitle": "sounds.ultrakilldeath.tv_on",
+    "sounds": [
+      "ultrakilldeath:tv_on"
+    ]
+  },
+  "tv_static": {
+    "subtitle": "sounds.ultrakilldeath.tv_static",
+    "sounds": [
+      "ultrakilldeath:tv_static"
+    ]
+  },
+  "death_sequence": {
+    "subtitle": "sounds.ultrakilldeath.death_sequence",
+    "sounds": [
+      "ultrakilldeath:death_sequence"
+    ]
+  }
+}

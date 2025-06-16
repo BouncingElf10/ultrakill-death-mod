@@ -14,6 +14,8 @@
     "DeathScreenMixin",
     "GlobalRespawnKeyMixin",
     "HideArmMixin",
-    "HUDMixin"
+    "HUDMixin",
+    "SoundManagerAccessor",
+    "SoundSystemAccessor"
   ]
 }

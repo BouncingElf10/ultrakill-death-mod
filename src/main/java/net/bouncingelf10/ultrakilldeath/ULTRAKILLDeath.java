@@ -1,14 +1,9 @@
 package net.bouncingelf10.ultrakilldeath;
 
-import foundry.veil.Veil;
-import foundry.veil.api.client.render.VeilRenderSystem;
-import foundry.veil.api.client.render.post.PostPipeline;
-import foundry.veil.api.client.render.post.PostProcessingManager;
+import net.bouncingelf10.ultrakilldeath.sound.ULTRAKILLDeathSounds;
 import net.fabricmc.api.ModInitializer;
 
 
-import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
-import net.fabricmc.fabric.api.client.rendering.v1.WorldRenderEvents;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -20,5 +15,6 @@ public class ULTRAKILLDeath implements ModInitializer {
 	@Override
 	public void onInitialize() {
 		LOGGER.info("initializing " + MOD_ID);
+		ULTRAKILLDeathSounds.registerSounds();
 	}
 }
