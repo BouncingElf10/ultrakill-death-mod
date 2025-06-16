@@ -12,8 +12,6 @@ public class ULTRAKILLDeathSounds {
     public static final SoundEvent SKULL_AHH = registerSoundEvent("skull_ahh");
     public static final SoundEvent DEATH_SEQUENCE = registerSoundEvent("death_sequence");
     public static final SoundEvent TV_ON = registerSoundEvent("tv_on");
-    public static final SoundEvent TV_STATIC = registerSoundEvent("tv_static");
-
 
     private static SoundEvent registerSoundEvent(String name) {
         Identifier id = Identifier.of(MOD_ID, name);

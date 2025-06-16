@@ -15,6 +15,7 @@
     "GlobalRespawnKeyMixin",
     "HideArmMixin",
     "HUDMixin",
+    "MinecraftClientMixin",
     "SoundManagerAccessor",
     "SoundSystemAccessor"
   ]
