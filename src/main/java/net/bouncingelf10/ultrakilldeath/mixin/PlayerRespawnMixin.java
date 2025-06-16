@@ -1,5 +1,6 @@
 package net.bouncingelf10.ultrakilldeath.mixin;
 
+import net.minecraft.client.MinecraftClient;
 import net.minecraft.entity.Entity;
 import net.minecraft.server.PlayerManager;
 import net.minecraft.server.network.ServerPlayerEntity;
@@ -18,5 +19,6 @@ public class PlayerRespawnMixin {
         progress = 0.0f;
         closingProgress = 0.0f;
         playedTVSound = false;
+        MinecraftClient.getInstance().getSoundManager().stopAll();
     }
 }
