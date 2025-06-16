@@ -11,12 +11,6 @@
       "ultrakilldeath:tv_on"
     ]
   },
-  "tv_static": {
-    "subtitle": "sounds.ultrakilldeath.tv_static",
-    "sounds": [
-      "ultrakilldeath:tv_static"
-    ]
-  },
   "death_sequence": {
     "subtitle": "sounds.ultrakilldeath.death_sequence",
     "sounds": [
