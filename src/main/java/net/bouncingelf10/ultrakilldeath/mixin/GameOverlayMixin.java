@@ -11,7 +11,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import static net.bouncingelf10.ultrakilldeath.ULTRAKILLDeathClient.isDead;
 
 @Mixin(InGameOverlayRenderer.class)
-public class MinecraftClientMixin {
+public class GameOverlayMixin {
 
     @Inject(method = "renderFireOverlay", at = @At(value = "HEAD"), cancellable = true)
     private static void cancelFireTextureRender(MinecraftClient client, MatrixStack matrices, CallbackInfo ci) {

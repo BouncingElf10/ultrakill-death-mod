@@ -5,6 +5,7 @@ import foundry.veil.api.client.render.VeilRenderSystem;
 import foundry.veil.api.client.render.post.PostPipeline;
 import foundry.veil.api.client.render.post.PostProcessingManager;
 import foundry.veil.api.client.util.Easings;
+import net.bouncingelf10.ultrakilldeath.camera.FreeCamEntity;
 import net.bouncingelf10.ultrakilldeath.mixin.SoundManagerAccessor;
 import net.bouncingelf10.ultrakilldeath.mixin.SoundSystemAccessor;
 import net.bouncingelf10.ultrakilldeath.sound.ULTRAKILLDeathSounds;
@@ -12,11 +13,13 @@ import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.rendering.v1.WorldRenderEvents;
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.client.sound.SoundInstance;
 import net.minecraft.client.sound.SoundManager;
 import net.minecraft.client.sound.SoundSystem;
 import net.minecraft.client.sound.Source;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.math.Vec3d;
 
 import java.util.Map;
 
@@ -31,6 +34,8 @@ public class ULTRAKILLDeathClient implements ClientModInitializer {
 	private static int skullIndex = 0;
 	private static long lastToggleTime = 0;
 	public static boolean playedTVSound = false;
+	private FreeCamEntity deathCam = null;
+	private boolean switched = false;
 
 	@Override
 	public void onInitializeClient() {
@@ -84,6 +89,28 @@ public class ULTRAKILLDeathClient implements ClientModInitializer {
 						closingProgress = 1.0f;
 					}
 				}
+			}
+
+			MinecraftClient client = MinecraftClient.getInstance();
+
+			if (client.world == null || client.player == null) return;
+			ClientPlayerEntity player = client.player;
+
+			if (player.isDead() && !switched) {
+				Vec3d velocity = player.getVelocity();
+				deathCam = new FreeCamEntity(client.world, player.getPos(), velocity, player.getPitch(), player.getYaw());
+				client.setCameraEntity(deathCam);
+				switched = true;
+			}
+
+			if (!player.isDead() && switched) {
+				client.setCameraEntity(player);
+				deathCam = null;
+				switched = false;
+			}
+
+			if (deathCam != null) {
+				deathCam.tick();
 			}
 		});
 	}

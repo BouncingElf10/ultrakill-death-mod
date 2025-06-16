@@ -12,10 +12,10 @@
   "client": [
     "DeathScreenAccessor",
     "DeathScreenMixin",
+    "GameOverlayMixin",
     "GlobalRespawnKeyMixin",
     "HideArmMixin",
     "HUDMixin",
-    "MinecraftClientMixin",
     "SoundManagerAccessor",
     "SoundSystemAccessor"
   ]
