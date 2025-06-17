@@ -4,7 +4,7 @@ package net.bouncingelf10.ultrakilldeath;
 import foundry.veil.api.client.render.VeilRenderSystem;
 import foundry.veil.api.client.render.post.PostPipeline;
 import foundry.veil.api.client.render.post.PostProcessingManager;
-import foundry.veil.api.client.util.Easings;
+import foundry.veil.api.client.util.Easing;
 import net.bouncingelf10.ultrakilldeath.camera.FreeCamEntity;
 import net.bouncingelf10.ultrakilldeath.mixin.SoundManagerAccessor;
 import net.bouncingelf10.ultrakilldeath.mixin.SoundSystemAccessor;
@@ -136,9 +136,10 @@ public class ULTRAKILLDeathClient implements ClientModInitializer {
 			PostProcessingManager postProcessingManager = VeilRenderSystem.renderer().getPostProcessingManager();
 			PostPipeline postPipeline = postProcessingManager.getPipeline(Identifier.of(MOD_ID, "death"));
             assert postPipeline != null;
-            postPipeline.setFloat("progress", progress);
-			postPipeline.setFloat("closingProgress", Easings.Easing.easeOutQuart.ease(closingProgress));
-			postPipeline.setInt("skullIndex", skullIndex);
+			postPipeline.getOrCreateUniform("progress").setFloat(progress);
+			postPipeline.getOrCreateUniform("closingProgress").setFloat(Easing.EASE_OUT_QUART.ease(closingProgress));
+			postPipeline.getOrCreateUniform("skullIndex").setInt(skullIndex);
+
 			postProcessingManager.runPipeline(postPipeline);
 
 		} catch (Exception e) {
