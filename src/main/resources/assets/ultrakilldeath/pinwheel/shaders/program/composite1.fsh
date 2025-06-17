@@ -39,12 +39,27 @@ void main() {
     float x = texCoord.x;
     float timeSeed = floor(GameTime * 24000.0);
 
-    float line = float(floor(texCoord.y * 240.0 / 2.0));
+    float linesPerScreen = 240.0 / 2.0;
+    float barHeight = 1.0 / linesPerScreen;
+
+    float line = floor(texCoord.y * linesPerScreen);
+    float lineCenterY = (line + 0.5) / linesPerScreen;
     float rnd = rand(line * 12.9898 + floor(GameTime * 48000.0));
     float mask = step(max(1.0 - progress, 0.2), rnd);
-    float triangle = 1.0 - abs(texCoord.x * 2.0 - 1.0);
-    float shift = (rnd - 0.5) * 2.0 * 0.02 * triangle * mask * progress;
+
+    float direction = step(0.5, rand(line * 99.9 + 3.33));
+
+    float taper = direction == 0.0
+    ? clamp((texCoord.x - 0.0) / 0.4, 0.0, 1.0)
+    : clamp((1.0 - texCoord.x) / 0.4, 0.0, 1.0);
+
+    taper = pow(taper, 1.5);
+
+    float triangle = pow(1.0 - abs(texCoord.x * 2.0 - 1.0), 2.0);
+
+    float shift = (rnd - 0.5) * 2.0 * 0.03 * triangle * mask * progress * taper;
     float shiftedX = texCoord.x + shift;
+
 
     for (int i = 0; i < bars; i++) {
         if (float(i) >= barCount) break;
