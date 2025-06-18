@@ -23,6 +23,9 @@
 		],
 		"fabric-datagen": [
 			"net.bouncingelf10.ultrakilldeath.ULTRAKILLDeathDataGenerator"
+		],
+		"modmenu": [
+			"net.bouncingelf10.ultrakilldeath.config.ModMenuIntegration"
 		]
 	},
 	"mixins": [
@@ -33,7 +36,8 @@
 		"minecraft": "~1.21.1",
 		"java": ">=21",
 		"fabric-api": "*",
-		"veil": ">=1.2.0"
+		"veil": ">=1.2.0",
+		"yet_another_config_lib_v3": ">=3.6.1+1.21-fabric"
 	},
 	"suggests": {
 		"another-mod": "*"
