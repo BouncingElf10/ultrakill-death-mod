@@ -11,14 +11,20 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import java.lang.reflect.Method;
 
+import static net.bouncingelf10.ultrakilldeath.keys.ULTRAKILLDeathKeyBindings.*;
+
 @Mixin(Screen.class)
 public abstract class GlobalRespawnKeyMixin {
 
     @Inject(method = "keyPressed", at = @At("HEAD"), cancellable = true)
     private void onKeyPressed(int keyCode, int scanCode, int modifiers, CallbackInfoReturnable<Boolean> cir) {
-        if ((Object) this instanceof DeathScreen deathScreen && keyCode == GLFW.GLFW_KEY_R) {
-            //((DeathScreenAccessor) deathScreen).invokeOnTitleScreenButtonClicked();
+        if ((Object) this instanceof DeathScreen deathScreen && respawnKeyBinding.matchesKey(keyCode, -1)) {
             MinecraftClient.getInstance().player.requestRespawn();
+            cir.setReturnValue(true);
+        }
+
+        if ((Object) this instanceof DeathScreen deathScreen && quitKeyBinding.matchesKey(keyCode, -1)) {
+            ((DeathScreenAccessor) deathScreen).invokeOnTitleScreenButtonClicked();
             cir.setReturnValue(true);
         }
     }

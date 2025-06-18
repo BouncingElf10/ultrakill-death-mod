@@ -6,20 +6,25 @@ import foundry.veil.api.client.render.post.PostPipeline;
 import foundry.veil.api.client.render.post.PostProcessingManager;
 import foundry.veil.api.client.util.Easing;
 import net.bouncingelf10.ultrakilldeath.camera.FreeCamEntity;
+import net.bouncingelf10.ultrakilldeath.keys.ULTRAKILLDeathKeyBindings;
 import net.bouncingelf10.ultrakilldeath.mixin.SoundManagerAccessor;
 import net.bouncingelf10.ultrakilldeath.mixin.SoundSystemAccessor;
 import net.bouncingelf10.ultrakilldeath.sound.ULTRAKILLDeathSounds;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
+import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
 import net.fabricmc.fabric.api.client.rendering.v1.WorldRenderEvents;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.ClientPlayerEntity;
+import net.minecraft.client.option.KeyBinding;
 import net.minecraft.client.sound.SoundInstance;
 import net.minecraft.client.sound.SoundManager;
 import net.minecraft.client.sound.SoundSystem;
 import net.minecraft.client.sound.Source;
+import net.minecraft.client.util.InputUtil;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Vec3d;
+import org.lwjgl.glfw.GLFW;
 
 import java.util.Map;
 
@@ -40,6 +45,8 @@ public class ULTRAKILLDeathClient implements ClientModInitializer {
 	@Override
 	public void onInitializeClient() {
 		LOGGER.info("initializing client " + MOD_ID);
+
+		ULTRAKILLDeathKeyBindings.register();
 
 		WorldRenderEvents.END.register((ctx) -> {
 			try {
@@ -143,7 +150,7 @@ public class ULTRAKILLDeathClient implements ClientModInitializer {
 			postProcessingManager.runPipeline(postPipeline);
 
 		} catch (Exception e) {
-            LOGGER.warn("Shader not found or failed to run. This is expected if the shader is not available. {}", e.getMessage());
+            LOGGER.warn("Shader not found or failed to run. {}", e.getMessage());
 		}
 	}
 }
