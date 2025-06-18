@@ -19,6 +19,15 @@ repositories {
 	maven {
 		name = 'BlameJared Maven (CrT / Bookshelf)'
 		url = 'https://maven.blamejared.com'
+
+	}
+	maven {
+		name = 'Xander Maven'
+		url = 'https://maven.isxander.dev/releases'
+	}
+	maven {
+		name = "Terraformers"
+		url = "https://maven.terraformersmc.com/"
 	}
 }
 
@@ -36,10 +45,15 @@ dependencies {
 
 	// Fabric API. This is technically optional, but you probably want it anyway.
 	modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
+	// Veil Foundry
 	modImplementation("foundry.veil:veil-fabric-${project.minecraft_version}:${project.veil_version}") {
 		exclude group: "maven.modrinth"
 		exclude group: "me.fallenbreath"
 	}
+	// YACL (Yet Another Config Lib)
+	modImplementation "dev.isxander:yet-another-config-lib:${project.yacl_version}"
+	// Mod Menu
+	modImplementation("com.terraformersmc:modmenu:${project.modmenu_version}")
 }
 
 processResources {
