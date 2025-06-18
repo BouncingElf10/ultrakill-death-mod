@@ -2,6 +2,7 @@ package net.bouncingelf10.ultrakilldeath.mixin;
 
 import net.bouncingelf10.ultrakilldeath.sound.ULTRAKILLDeathSounds;
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.sound.PositionedSoundInstance;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.server.network.ServerPlayerEntity;
 import org.spongepowered.asm.mixin.Mixin;
@@ -23,7 +24,9 @@ public abstract class PlayerDeathMixin {
 			LOGGER.warn("Player not found, cannot play sound.");
 			return;
 		}
-		MinecraftClient.getInstance().player.playSound(ULTRAKILLDeathSounds.DEATH_SEQUENCE, 1.0f, 1.0f);
+		MinecraftClient.getInstance().getSoundManager().play(
+				PositionedSoundInstance.master(ULTRAKILLDeathSounds.DEATH_SEQUENCE, 1.0f)
+		);
 	}
 }
 
