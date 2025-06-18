@@ -17,10 +17,7 @@ import net.fabricmc.fabric.api.client.rendering.v1.WorldRenderEvents;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.client.option.KeyBinding;
-import net.minecraft.client.sound.SoundInstance;
-import net.minecraft.client.sound.SoundManager;
-import net.minecraft.client.sound.SoundSystem;
-import net.minecraft.client.sound.Source;
+import net.minecraft.client.sound.*;
 import net.minecraft.client.util.InputUtil;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Vec3d;
@@ -85,8 +82,11 @@ public class ULTRAKILLDeathClient implements ClientModInitializer {
 				if (progress >= 1.0f) {
 					if (!playedTVSound) {
                         if (MinecraftClient.getInstance().player != null) {
-							MinecraftClient.getInstance().player.playSound(ULTRAKILLDeathSounds.TV_ON, 1.0f, 1.0f);
-                        } else {
+							MinecraftClient.getInstance().getSoundManager().play(
+									PositionedSoundInstance.master(ULTRAKILLDeathSounds.TV_ON, 1.0f)
+							);
+
+						} else {
 							LOGGER.warn("Player not found, cannot play sound.");
 						}
 						playedTVSound = true;
@@ -130,7 +130,10 @@ public class ULTRAKILLDeathClient implements ClientModInitializer {
 			if (timeElapsed >= 600_000_000L) {
 				if (MinecraftClient.getInstance().player != null) {
 					if (skullIndex == 0 && playedTVSound) {
-						MinecraftClient.getInstance().player.playSound(ULTRAKILLDeathSounds.SKULL_AHH, 1.0f, 1.0f);
+						MinecraftClient.getInstance().getSoundManager().play(
+								PositionedSoundInstance.master(ULTRAKILLDeathSounds.SKULL_AHH, 1.0f)
+						);
+
 					}
 				} else {
 					LOGGER.warn("Player not found, cannot play sound.");

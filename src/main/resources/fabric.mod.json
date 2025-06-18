@@ -3,26 +3,22 @@
 	"id": "ultrakilldeath",
 	"version": "${version}",
 	"name": "ULTRAKILL Death",
-	"description": "This is an example description! Tell everyone what your mod is about!",
+	"description": "Replicates the death animation from ULTRAKILL in Minecraft!",
 	"authors": [
 		"BouncingElf10"
 	],
 	"contact": {
-		"homepage": "https://fabricmc.net/",
-		"sources": "https://github.com/FabricMC/fabric-example-mod"
+		"sources": "https://github.com/BouncingElf10/ultrakill-death-mod"
 	},
 	"license": "CC0-1.0",
 	"icon": "assets/ultrakilldeath/icon.png",
-	"environment": "*",
+	"environment": "client",
 	"entrypoints": {
 		"main": [
 			"net.bouncingelf10.ultrakilldeath.ULTRAKILLDeath"
 		],
 		"client": [
 			"net.bouncingelf10.ultrakilldeath.ULTRAKILLDeathClient"
-		],
-		"fabric-datagen": [
-			"net.bouncingelf10.ultrakilldeath.ULTRAKILLDeathDataGenerator"
 		]
 	},
 	"mixins": [
@@ -34,8 +30,5 @@
 		"java": ">=21",
 		"fabric-api": "*",
 		"veil": ">=1.2.0"
-	},
-	"suggests": {
-		"another-mod": "*"
 	}
 }
