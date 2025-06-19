@@ -14,7 +14,7 @@ import static net.bouncingelf10.ultrakilldeath.ULTRAKILLDeathClient.isDead;
 public abstract class HUDMixin {
 
 	@Inject(method = "render", at = @At("HEAD"), cancellable = true)
-	private void hideHUD(DrawContext context, RenderTickCounter tickCounter, CallbackInfo ci) {
+	private void hideHUD(DrawContext context, float tickDelta, CallbackInfo ci) {
 		if (isDead) {
 			ci.cancel();
 		}

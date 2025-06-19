@@ -4,7 +4,7 @@ package net.bouncingelf10.ultrakilldeath;
 import foundry.veil.api.client.render.VeilRenderSystem;
 import foundry.veil.api.client.render.post.PostPipeline;
 import foundry.veil.api.client.render.post.PostProcessingManager;
-import foundry.veil.api.client.util.Easing;
+import foundry.veil.api.client.util.Easings;
 import net.bouncingelf10.ultrakilldeath.camera.FreeCamEntity;
 import net.bouncingelf10.ultrakilldeath.keys.ULTRAKILLDeathKeyBindings;
 import net.bouncingelf10.ultrakilldeath.mixin.SoundManagerAccessor;
@@ -12,16 +12,12 @@ import net.bouncingelf10.ultrakilldeath.mixin.SoundSystemAccessor;
 import net.bouncingelf10.ultrakilldeath.sound.ULTRAKILLDeathSounds;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
-import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
 import net.fabricmc.fabric.api.client.rendering.v1.WorldRenderEvents;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.ClientPlayerEntity;
-import net.minecraft.client.option.KeyBinding;
 import net.minecraft.client.sound.*;
-import net.minecraft.client.util.InputUtil;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Vec3d;
-import org.lwjgl.glfw.GLFW;
 
 import java.util.Map;
 
@@ -146,9 +142,9 @@ public class ULTRAKILLDeathClient implements ClientModInitializer {
 			PostProcessingManager postProcessingManager = VeilRenderSystem.renderer().getPostProcessingManager();
 			PostPipeline postPipeline = postProcessingManager.getPipeline(Identifier.of(MOD_ID, "death"));
             assert postPipeline != null;
-			postPipeline.getOrCreateUniform("progress").setFloat(progress);
-			postPipeline.getOrCreateUniform("closingProgress").setFloat(Easing.EASE_OUT_QUART.ease(closingProgress));
-			postPipeline.getOrCreateUniform("skullIndex").setInt(skullIndex);
+			postPipeline.setFloat("progress", progress);
+			postPipeline.setFloat("closingProgress", Easings.Easing.easeOutQuart.ease(closingProgress));
+			postPipeline.setInt("skullIndex", skullIndex);
 
 			postProcessingManager.runPipeline(postPipeline);
 
