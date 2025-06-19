@@ -14,7 +14,7 @@ import static net.bouncingelf10.ultrakilldeath.ULTRAKILLDeathClient.*;
 @Mixin(PlayerManager.class)
 public class PlayerRespawnMixin {
     @Inject(method = "respawnPlayer", at = @At("TAIL"))
-    private void onPlayerRespawn(ServerPlayerEntity player, boolean alive, Entity.RemovalReason removalReason, CallbackInfoReturnable<ServerPlayerEntity> cir) {
+    private void onPlayerRespawn(ServerPlayerEntity player, boolean alive, CallbackInfoReturnable<ServerPlayerEntity> cir) {
         isDead = false;
         progress = 0.0f;
         closingProgress = 0.0f;

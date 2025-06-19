@@ -60,7 +60,7 @@ public class FreeCamEntity extends Entity {
     }
 
     @Override
-    protected void initDataTracker(DataTracker.Builder builder) {}
+    protected void initDataTracker() {}
 
     @Override
     protected void readCustomDataFromNbt(net.minecraft.nbt.NbtCompound nbt) {}
